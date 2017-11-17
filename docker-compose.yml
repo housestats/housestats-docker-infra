@@ -2,12 +2,6 @@ version: "3"
 
 services:
 
-  influxdb:
-    image: influxdb
-    volumes:
-      - metrics:/var/lib/influxdb
-    restart: always
-
   timescaledb:
     image: timescale/timescaledb
     environment:
@@ -33,13 +27,6 @@ services:
       - mosquitto
     restart: always
 
-  telegraf:
-    image: telegraf
-    network_mode: service:influxdb
-    volumes:
-      - ./telegraf.conf:/etc/telegraf/telegraf.conf
-    restart: always
-
   mosquitto:
     image: eclipse-mosquitto
     ports:
@@ -55,6 +42,5 @@ services:
     restart: always
 
 volumes:
-  metrics:
   grafana:
   postgres:

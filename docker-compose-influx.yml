@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  influxdb:
+    image: influxdb
+    volumes:
+      - metrics:/var/lib/influxdb
+    restart: always
+
+  telegraf:
+    image: telegraf
+    network_mode: service:influxdb
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf
+    restart: always
+
+volumes:
+  metrics:
