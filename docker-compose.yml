@@ -16,12 +16,13 @@ services:
     build:
       context: skeetereater
     environment:
-      SKEETER_DB_HOST: timescaledb
-      SKEETER_DB_USER: postgres
+      SKEETER_DB_HOST: "timescaledb"
+      SKEETER_DB_USER: "postgres"
       SKEETER_DB_PASS: "$POSTGRES_PASSWORD"
-      SKEETER_DB_NAME: sensors
-      SKEETER_MQTT_HOST: mosquitto
-      SKEETER_TOPICS: sensor/+/+
+      SKEETER_DB_NAME: "sensors"
+      SKEETER_MQTT_HOST: "mosquitto"
+      SKEETER_TOPICS: "sensor/+/+"
+      SKEETER_TABLE_NAME_FORMAT: "sensor_{sensor_type}"
     depends_on:
       - timescaledb
       - mosquitto
