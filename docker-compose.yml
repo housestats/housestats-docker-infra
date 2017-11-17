@@ -8,6 +8,31 @@ services:
       - metrics:/var/lib/influxdb
     restart: always
 
+  timescaledb:
+    image: timescale/timescaledb
+    environment:
+      POSTGRES_PASSWORD: "$POSTGRES_PASSWORD"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+
+  skeetereater:
+    image: skeetereater
+    build:
+      context: skeetereater
+    environment:
+      SKEETER_DB_HOST: timescaledb
+      SKEETER_DB_USER: postgres
+      SKEETER_DB_PASS: "$POSTGRES_PASSWORD"
+      SKEETER_DB_NAME: sensors
+      SKEETER_MQTT_HOST: mosquitto
+      SKEETER_TOPICS: sensor/+/+
+    depends_on:
+      - timescaledb
+      - mosquitto
+    restart: always
+
   telegraf:
     image: telegraf
     network_mode: service:influxdb
@@ -32,3 +57,4 @@ services:
 volumes:
   metrics:
   grafana:
+  postgres:
