@@ -23,6 +23,7 @@ services:
       SKEETER_MQTT_HOST: "mosquitto"
       SKEETER_TOPICS: "sensor/+/+"
       SKEETER_TABLE_NAME_FORMAT: "sensor_{sensor_type}"
+      SKEETER_TAG_KEYS: location,topic,sensor_id,sensor_type
     depends_on:
       - timescaledb
       - mosquitto
