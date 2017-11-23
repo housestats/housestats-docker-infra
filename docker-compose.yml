@@ -50,6 +50,7 @@ services:
     ports:
       - "25826:25826/udp"
     environment:
+      COLLECTD_HOSTNAME: collectd
       COLLECTD_DB_HOST: "timescaledb"
       COLLECTD_DB_USER: "postgres"
       COLLECTD_DB_PASS: "$POSTGRES_PASSWORD"
