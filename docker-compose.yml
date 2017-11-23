@@ -43,6 +43,19 @@ services:
       - "3000:3000"
     restart: always
 
+  collectd:
+    image: collectd
+    build:
+      context: ./collectd
+    ports:
+      - "25826:25826/udp"
+    environment:
+      COLLECTD_DB_HOST: "timescaledb"
+      COLLECTD_DB_USER: "postgres"
+      COLLECTD_DB_PASS: "$POSTGRES_PASSWORD"
+      COLLECTD_DB_NAME: "collectd"
+    restart: always
+
 volumes:
   grafana:
   postgres:
